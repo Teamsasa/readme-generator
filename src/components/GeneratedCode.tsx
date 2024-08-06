@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface GeneratedCodeProps {
   code: string;
@@ -6,10 +6,10 @@ interface GeneratedCodeProps {
 
 const GeneratedCode: React.FC<GeneratedCodeProps> = ({ code }) => {
   return (
-    <pre className="bg-gray-100 p-4 mt-4">
+    <pre className="bg-gray-200 p-4 mt-4 rounded shadow-inner">
       <code>{code}</code>
     </pre>
   );
-}
+};
 
 export default GeneratedCode;

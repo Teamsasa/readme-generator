@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface InputProps {
   value: string;
@@ -13,9 +13,9 @@ const Input: React.FC<InputProps> = ({ value, onChange, placeholder }) => {
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="border p-2 w-full"
+      className="border p-2 w-full rounded"
     />
   );
-}
+};
 
 export default Input;
