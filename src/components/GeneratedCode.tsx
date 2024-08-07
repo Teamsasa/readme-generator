@@ -8,11 +8,14 @@ interface GeneratedCodeProps {
 
 const GeneratedCode: React.FC<GeneratedCodeProps> = ({ code }) => {
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(code).then(() => {
-      alert("コードがクリップボードにコピーされました！");
-    }).catch((err) => {
-      console.error("コピーに失敗しました: ", err);
-    });
+    navigator.clipboard
+      .writeText(code)
+      .then(() => {
+        alert("コードがクリップボードにコピーされました！");
+      })
+      .catch((err) => {
+        console.error("コピーに失敗しました: ", err);
+      });
   };
 
   return (
@@ -23,7 +26,7 @@ const GeneratedCode: React.FC<GeneratedCodeProps> = ({ code }) => {
       >
         <FontAwesomeIcon icon={faClipboard} size="sm" />
       </button>
-      <pre style={{ whiteSpace: 'pre', overflow: 'auto' }}>
+      <pre style={{ whiteSpace: "pre", overflow: "auto" }}>
         <code>{code}</code>
       </pre>
     </div>
