@@ -23,7 +23,7 @@ const GeneratedCode: React.FC<GeneratedCodeProps> = ({ code }) => {
       >
         <FontAwesomeIcon icon={faClipboard} size="sm" />
       </button>
-      <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+      <pre style={{ whiteSpace: 'pre', overflow: 'auto' }}>
         <code>{code}</code>
       </pre>
     </div>
