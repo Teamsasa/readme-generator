@@ -1,33 +1,49 @@
-# 使い方
-`npm run dev`
-で表示されたポートで実際にアクセスする (Viteで実行)
-# React + TypeScript + Vite
+# Project
+### Readme Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+# Quick Start Guide
+Access the application and select the content and color you want to add to your README from the select box, then press the Generate Code button. You can add as many items as you like.
+```
+https://main.d277m1n68wl8i3.amplifyapp.com/
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# Developer Content
+## Quick Start Guide
+1. install dependencies
+	```
+	npm install
+	```
+2. Start the development server
+	```
+	npm run dev
+	```
+3. Access the application at local server
+	```
+	http://localhost:5173/
+	```
+## Tests used in CI
+### ESlint
+ESLint is a static code analysis tool for JavaScript and TypeScript that detects syntax errors and style issues without executing the code.<br/>
+
+🔻By running the following command in the terminal, you can detect errors🔻
+```
+npm run lint
+```
+### prettier
+Prettier is a code formatter that helps keep your code looking neat and consistent. It supports JavaScript, TypeScript, HTML, CSS, JSON, Markdown, and more. By using Prettier, you can easily maintain a uniform code style across your project, which improves readability and makes the code easier to work with.<br/>
+
+🔻By running the following command in the terminal, you can detect parts of the code that differ from the format🔻
+```
+npx prettier . --check
+```
+🔻By running the following command in the terminal, you can format your code🔻
+```
+npx prettier . --write
+```
+### TypeScript Type Checking
+It compiles TypeScript code to check for errors without actually generating JavaScript files.<br/>
+
+🔻By running the following command in the terminal, you can detect errors🔻
+```
+npx tsc --noEmit
+```
