@@ -32,15 +32,14 @@ const GeneratedCode: React.FC<GeneratedCodeProps> = ({ code }) => {
           <code>{code}</code>
         </pre>
       </div>
-      <div
-        style={{
-          backgroundColor: "#f9f9f9",
-          padding: "10px",
-          border: "1px solid #ddd",
-          borderRadius: "4px",
-          marginTop: "10px",
-        }}
-      >
+      <div className="bg-gray-50 p-2 border border-gray-300 rounded mt-2">
+        <style>
+          {`
+          h1 {
+            font-size: 36px;
+          }
+        `}
+        </style>
         {parse(code)}
       </div>
     </>
