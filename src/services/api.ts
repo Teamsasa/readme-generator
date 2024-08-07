@@ -1,11 +1,15 @@
-import { open } from 'sqlite';
-import sqlite3 from 'sqlite3';
+import { Database, open } from "sqlite";
+import sqlite3 from "sqlite3";
 
-export const initDB = async () => {
+export const initDB = async (): Promise<Database> => {
   const db = await open({
-    filename: './readme-generator.db',
+    filename: "./readme-generator.db",
     driver: sqlite3.Database,
   });
+
+  if (db === null) {
+    throw new Error("Failed to open database");
+  }
 
   await db.exec(`
     CREATE TABLE IF NOT EXISTS items (
@@ -16,15 +20,21 @@ export const initDB = async () => {
   `);
 
   return db;
-}
+};
 
-export const seedDB = async (db: sqlite3.Database) => {
+export const seedDB = async (db: Database) => {
   const items = [
-    { name: 'stat', code: 'const stats = { name: "{name}", value: 100 };' },
-    { name: 'trophy', code: 'const trophy = { name: "{name}", title: "Champion" };' },
+    { name: "stat", code: 'const stats = { name: "{name}", value: 100 };' },
+    {
+      name: "trophy",
+      code: 'const trophy = { name: "{name}", title: "Champion" };',
+    },
   ];
 
   for (const item of items) {
-    await db.run('INSERT INTO items (name, code) VALUES (?, ?)', [item.name, item.code]);
+    await db.run("INSERT INTO items (name, code) VALUES (?, ?)", [
+      item.name,
+      item.code,
+    ]);
   }
-}
+};

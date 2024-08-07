@@ -15,8 +15,8 @@ export const generateCode = (name: string, items: string[]): string => {
       <br/>
       <div align="center">
           <img src="https://github-profile-trophy.vercel.app/?username=${name}&theme=tokyonight"/>
-      </div>`
+      </div>`,
   };
 
-  return items.map((item) => codeSnippets[item]).join('\n');
+  return items.map((item) => codeSnippets[item]).join("\n");
 };
