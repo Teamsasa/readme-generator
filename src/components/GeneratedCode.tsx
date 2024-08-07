@@ -21,7 +21,7 @@ const GeneratedCode: React.FC<GeneratedCodeProps> = ({ code }) => {
 
   return (
     <>
-      <div className="relative bg-gray-200 p-4 mt-4 rounded shadow-inner">
+      <div className="relative bg-gray-200 p-4 mt-4 rounded shadow-inner dark:bg-neutral-700 dark:text-white">
         <button
           onClick={copyToClipboard}
           className="absolute top-2 right-2 text-blue-600 hover:text-blue-700 transition duration-300"
@@ -32,7 +32,7 @@ const GeneratedCode: React.FC<GeneratedCodeProps> = ({ code }) => {
           <code>{code}</code>
         </pre>
       </div>
-      <div className="bg-gray-50 p-2 border border-gray-300 rounded mt-2">
+      <div className="relative bg-gray-200 p-4 mt-4 rounded shadow-inner dark:bg-neutral-700 dark:text-white">
         <style>
           {`
           h1 {
