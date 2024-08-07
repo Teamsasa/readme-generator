@@ -150,7 +150,9 @@ interface DraggableCardProps {
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   updateLabel: (
     id: number,
+
     labelType: "label1" | "label2",
+
     value: string,
   ) => void;
   removeCard: (id: number) => void;
@@ -217,7 +219,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
     <div
       ref={ref}
       style={{ opacity }}
-      className="bg-white p-4 mb-4 rounded shadow-lg"
+      className="border bg-white dark:bg-neutral-800 p-4 mb-4 rounded dark:border-neutral-600"
     >
       <div className="flex items-center mb-2">
         <div ref={drag} className="cursor-move mr-2">
@@ -232,7 +234,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           </svg>
         </div>
         <select
-          className="w-full p-2 border rounded mr-2"
+          className="w-full p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
           value={card.label1}
           onChange={(e) => updateLabel(card.id, "label1", e.target.value)}
         >
@@ -245,13 +247,13 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
         {card.label1 === "title" || card.label1 === "body" ? (
           <input
             type="text"
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           />
         ) : (
           <select
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           >

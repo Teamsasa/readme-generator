@@ -13,7 +13,7 @@ const Input: React.FC<InputProps> = ({ value, onChange, placeholder }) => {
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="border p-2 w-full rounded"
+      className="border p-2 w-full rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
     />
   );
 };
