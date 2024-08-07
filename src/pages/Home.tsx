@@ -47,7 +47,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto py-10 p-4 bg-gray-50">
+    <div className="container mx-auto py-10 p-4 bg-neutral-50 text-black dark:bg-neutral-800 dark:text-white">
       <Input
         value={username}
         onChange={setUsername}
