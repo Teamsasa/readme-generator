@@ -86,7 +86,7 @@ const Selector: React.FC<SelectorProps> = ({
   const updateLabel = (
     id: number,
     labelType: "label1" | "label2",
-    value: string
+    value: string,
   ) => {
     setSelectedItems(
       selectedItems.map((card) => {
@@ -103,7 +103,7 @@ const Selector: React.FC<SelectorProps> = ({
           return { ...card, [labelType]: value };
         }
         return card;
-      })
+      }),
     );
   };
 
@@ -149,9 +149,13 @@ interface DraggableCardProps {
   index: number;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   updateLabel: (
+    
     id: number,
+   
     labelType: "label1" | "label2",
-    value: string
+   
+    value: string,
+  
   ) => void;
   removeCard: (id: number) => void;
 }
@@ -215,9 +219,13 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
 
   return (
     <div
+     
       ref={ref}
+     
       style={{ opacity }}
+     
       className="border bg-white dark:bg-neutral-800 p-4 mb-4 rounded dark:border-neutral-600"
+    
     >
       <div className="flex items-center mb-2">
         <div ref={drag} className="cursor-move mr-2">
