@@ -18,7 +18,7 @@ export const initDB = async () => {
   return db;
 }
 
-export const seedDB = async (db: any) => {
+export const seedDB = async (db: sqlite3.Database) => {
   const items = [
     { name: 'stat', code: 'const stats = { name: "{name}", value: 100 };' },
     { name: 'trophy', code: 'const trophy = { name: "{name}", title: "Champion" };' },
