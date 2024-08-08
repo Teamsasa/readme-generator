@@ -24,6 +24,13 @@ const options: string[] = [
   "body",
 ];
 
+const halfSizeCards: string[] = [
+  "Top languages used in repository card",
+  "Top languages in commits card",
+  "GitHub stats card",
+  "Productive time card",
+];
+
 const cardProfiles: string[] = [
   "default",
   "2077",
@@ -120,7 +127,7 @@ const Selector: React.FC<SelectorProps> = ({
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="p-4">
+      <div className="p-4 grid grid-cols-2 gap-4">
         {selectedItems.map((card, index) => (
           <DraggableCard
             key={card.id}
@@ -131,7 +138,7 @@ const Selector: React.FC<SelectorProps> = ({
             removeCard={removeCard}
           />
         ))}
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 col-span-2">
           <button
             onClick={addCard}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300"
@@ -150,9 +157,7 @@ interface DraggableCardProps {
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   updateLabel: (
     id: number,
-
     labelType: "label1" | "label2",
-
     value: string,
   ) => void;
   removeCard: (id: number) => void;
@@ -219,7 +224,9 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
     <div
       ref={ref}
       style={{ opacity }}
-      className="border bg-white dark:bg-neutral-800 p-4 mb-4 rounded dark:border-neutral-600"
+      className={`border bg-white dark:bg-neutral-800 p-4 mb-4 rounded dark:border-neutral-600 ${
+        halfSizeCards.includes(card.label1) ? "col-span-1" : "col-span-2"
+      }`}
     >
       <div className="flex items-center mb-2">
         <div ref={drag} className="cursor-move mr-2">
