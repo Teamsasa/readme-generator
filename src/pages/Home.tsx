@@ -8,6 +8,7 @@ type CardData = {
   id: number;
   label1: string;
   label2: string;
+  label3?: string;
 };
 
 const Home: React.FC = () => {
@@ -35,9 +36,9 @@ const Home: React.FC = () => {
             label1Map[item.label1]
           }?username=${username}&count_private=true&theme=${item.label2}"/>`;
         } else if (item.label1 === "title") {
-          return `<h1>${item.label2}</h1>`;
+          return `<h1 align="${item.label3}">${item.label2}</h1>`;
         } else if (item.label1 === "body") {
-          return `<p>${item.label2}</p>`;
+          return `<p align="${item.label3}">${item.label2}</p>`;
         } else {
           return `Option: ${item.label1} could not be generated`;
         }
