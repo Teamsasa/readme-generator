@@ -119,17 +119,47 @@ const Selector: React.FC<SelectorProps> = ({
       selectedItems.map((card) => {
         if (card.id === id) {
           if (labelType === "label1") {
-            const profiles =
-              value === "profile-trophy" ? trophyProfiles : cardProfiles;
-            return {
-              ...card,
-              [labelType]: value,
-              label2: profiles[0],
-              label3:
-                value === "title" || value === "body"
-                  ? alignProfiles[0]
-                  : undefined,
-            };
+            if (value === "profile-trophy") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: trophyProfiles[0],
+              };
+            } else if (value === "title" || value === "body") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "default",
+                label3: alignProfiles[0],
+              };
+            } else if (value === "readme typing svg") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "this is first line\nthis is second line",
+              };
+            } else if (value === "Static Badge") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "any text",
+                label3: "you like",
+                label4: colorProfiles[0],
+              }
+            } else if (value === "skill icons") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "react,typescript,javascript,html,css",
+              }
+            } else {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: cardProfiles[0],
+                label3: undefined,
+              };
+            }
           }
           return { ...card, [labelType]: value };
         }
