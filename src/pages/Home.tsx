@@ -14,7 +14,9 @@ type CardData = {
 
 const Home: React.FC = () => {
   const [username, setUsername] = useState("");
-  const [selectedItems, setSelectedItems] = useState<CardData[]>([] as CardData[]);
+  const [selectedItems, setSelectedItems] = useState<CardData[]>(
+    [] as CardData[],
+  );
   const [code, setCode] = useState("");
 
   const handleGenerateCode = () => {
@@ -56,9 +58,13 @@ const Home: React.FC = () => {
       const alignment = cardsToDisplay[0].label3;
       groupHtml += `
         <div style="display: flex; justify-content: ${alignment}; align-items: center; flex-wrap: nowrap; margin-bottom: 10px;">
-          ${cardsToDisplay.map((item) => `
+          ${cardsToDisplay
+            .map(
+              (item) => `
             <img src="https://github-profile-summary-cards.vercel.app/api/cards/${getCardUrl(item.label1)}?username=${username}&count_private=true&theme=${item.label2}" style="margin-right: 10px;"/>
-          `).join("\n")}
+          `,
+            )
+            .join("\n")}
         </div>
       `;
     }
