@@ -135,6 +135,7 @@ const Selector: React.FC<SelectorProps> = ({
             moveCard={moveCard}
             updateLabel={updateLabel}
             removeCard={removeCard}
+            selectedItems={selectedItems}
           />
         ))}
         <div className="flex justify-center mt-4 col-span-2">
@@ -160,6 +161,7 @@ interface DraggableCardProps {
     value: string,
   ) => void;
   removeCard: (id: number) => void;
+  selectedItems: CardData[];
 }
 
 const DraggableCard: React.FC<DraggableCardProps> = ({
@@ -168,6 +170,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
   moveCard,
   updateLabel,
   removeCard,
+  selectedItems,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -205,6 +208,11 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
 
   const opacity = isDragging ? 0.4 : 1;
   dragPreview(drop(ref));
+
+  const isRightCard =
+    halfSizeCards.includes(card.label1) &&
+    index % 2 === 1 &&
+    halfSizeCards.includes(selectedItems[index - 1]?.label1);
 
   return (
     <div
@@ -264,17 +272,19 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
                 ))}
           </select>
         )}
-        <select
-          className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
-          value={card.label3}
-          onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
-        >
-          {alignProfiles.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        {!isRightCard && (
+          <select
+            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            value={card.label3}
+            onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
+          >
+            {alignProfiles.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        )}
         <button
           onClick={() => removeCard(card.id)}
           className="ml-2 text-red-500 hover:text-red-700"
