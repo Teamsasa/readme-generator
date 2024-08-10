@@ -85,6 +85,14 @@ const trophyProfiles: string[] = [
   "no",
 ];
 
+const colorProfiles: string[] = [
+  "brightgreen",
+  "blue",
+  "red",
+  "green",
+  "yellow",
+];
+
 const Selector: React.FC<SelectorProps> = ({
   selectedItems,
   setSelectedItems,
@@ -96,6 +104,7 @@ const Selector: React.FC<SelectorProps> = ({
       label2: cardProfiles[0],
       label3:
         options[0] === "title" || options[0] === "body" ? alignProfiles[0] : "",
+      label4: colorProfiles[0],
     };
     setSelectedItems([...selectedItems, newCard]);
   };
@@ -295,13 +304,17 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
               onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
             />
             {/* optional color choise */}
-            <input
-              type="text"
-              className="w-1/5 p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            <select
+              className="w-1/5 p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
               value={card.label4}
-              defaultValue={"blue"}
               onChange={(e) => updateLabel(card.id, "label4", e.target.value)}
-            />
+            >
+              {colorProfiles.map((color) => (
+                <option key={color} value={color}>
+                  {color}
+                </option>
+              ))}
+            </select>
           </>
         ) : (
           <select
