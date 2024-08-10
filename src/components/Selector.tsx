@@ -96,7 +96,6 @@ const colorProfiles: string[] = [
   "yellow",
 ];
 
-
 // ほんとはもっとたくさんある
 const githubReadmeStatsProfiles: string[] = [
   "default",
@@ -128,11 +127,7 @@ const Selector: React.FC<SelectorProps> = ({
     setSelectedItems([...selectedItems, newCard]);
   };
 
-  const updateLabel = (
-    id: number,
-    labelType: CardLabel,
-    value: string,
-  ) => {
+  const updateLabel = (id: number, labelType: CardLabel, value: string) => {
     setSelectedItems(
       selectedItems.map((card) => {
         if (card.id === id) {
@@ -163,25 +158,25 @@ const Selector: React.FC<SelectorProps> = ({
                 label2: "any text",
                 label3: "you like",
                 label4: colorProfiles[0],
-              }
+              };
             } else if (value === "skill icons") {
               return {
                 ...card,
                 [labelType]: value,
                 label2: "react,typescript,javascript,html,css",
-              }
+              };
             } else if (value === "typograssy") {
               return {
                 ...card,
                 [labelType]: value,
                 label2: "Hello world こんにちは世界",
-              }
+              };
             } else if (value === "github readme stats") {
               return {
                 ...card,
                 [labelType]: value,
                 label2: githubReadmeStatsProfiles[0],
-              }
+              };
             } else {
               return {
                 ...card,
@@ -239,11 +234,7 @@ interface DraggableCardProps {
   card: CardData;
   index: number;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
-  updateLabel: (
-    id: number,
-    labelType: CardLabel,
-    value: string,
-  ) => void;
+  updateLabel: (id: number, labelType: CardLabel, value: string) => void;
   removeCard: (id: number) => void;
 }
 
@@ -393,8 +384,8 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
             {(card.label1 === "profile-trophy"
               ? trophyProfiles
               : card.label1 === "github readme stats"
-              ? githubReadmeStatsProfiles
-              : cardProfiles
+                ? githubReadmeStatsProfiles
+                : cardProfiles
             ).map((profile) => (
               <option key={profile} value={profile}>
                 {profile}
