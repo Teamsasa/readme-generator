@@ -33,6 +33,8 @@ const Home: React.FC = () => {
           return `<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&repeat=true&width=435&lines=${(item.label2).replaceAll(" ", "+").replaceAll("\n", ";")}" alt="Typing SVG" />`;
         } else if (item.label1 === "Static Badge") {
           return `<img src="https://img.shields.io/badge/${item.label2}-${item.label3}-${item.label4}" />`;
+        } else if (item.label1 === "skill icons") {
+          return `<img src="https://skillicons.dev/icons?i=${item.label2}" />`;
         } else if (item.label1 === "title") {
           return `<h1 align="${item.label3}">${item.label2}</h1>`;
         } else if (item.label1 === "body") {

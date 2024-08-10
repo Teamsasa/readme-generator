@@ -26,6 +26,7 @@ const options: string[] = [
   "profile-trophy",
   "readme typing svg",
   "Static Badge",
+  "skill icons",
   "title",
   "body",
 ];
@@ -316,6 +317,13 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
               ))}
             </select>
           </>
+        ) : card.label1 === "skill icons" ? (
+          <input
+            type="text"
+            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            value={card.label2}
+            onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
+          />
         ) : (
           <select
             className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
