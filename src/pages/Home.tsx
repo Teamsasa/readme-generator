@@ -25,6 +25,22 @@ const Home: React.FC = () => {
     let currentGroup: CardData[] = [];
     let insideGroup = false;
 
+    if (!username) {
+      alert(
+        "🔴Error : Username is required.\nPlease enter your GitHub username.",
+      );
+      return;
+    }
+    const generatedCode = selectedItems
+      .map((item) => {
+        const label1Map: { [key: string]: string } = {
+          "Profile details card": "profile-details",
+          "Top languages used in repository card": "repos-per-language",
+          "Top languages in commits card": "most-commit-language",
+          "GitHub stats card": "stats",
+          "Productive time card": "productive-time",
+        };
+
     selectedItems.forEach((item) => {
       if (halfSizeCards.includes(item.label1)) {
         if (!insideGroup) {
