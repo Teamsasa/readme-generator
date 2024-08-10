@@ -35,6 +35,8 @@ const Home: React.FC = () => {
           return `<img src="https://img.shields.io/badge/${item.label2}-${item.label3}-${item.label4}" />`;
         } else if (item.label1 === "skill icons") {
           return `<img src="https://skillicons.dev/icons?i=${item.label2}" />`;
+        } else if (item.label1 === "typograssy") {
+          return `<img alt="typograssy" src="https://typograssy.deno.dev/api?text=${item.label2}">`;
         } else if (item.label1 === "title") {
           return `<h1 align="${item.label3}">${item.label2}</h1>`;
         } else if (item.label1 === "body") {

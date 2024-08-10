@@ -27,6 +27,7 @@ const options: string[] = [
   "readme typing svg",
   "Static Badge",
   "skill icons",
+  "typograssy",
   "title",
   "body",
 ];
@@ -151,6 +152,12 @@ const Selector: React.FC<SelectorProps> = ({
                 ...card,
                 [labelType]: value,
                 label2: "react,typescript,javascript,html,css",
+              }
+            } else if (value === "typograssy") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "Hello world こんにちは世界",
               }
             } else {
               return {
@@ -347,7 +354,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
               ))}
             </select>
           </>
-        ) : card.label1 === "skill icons" ? (
+        ) : card.label1 === "skill icons" || card.label1 === "typograssy" ? (
           <input
             type="text"
             className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
