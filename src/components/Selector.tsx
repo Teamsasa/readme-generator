@@ -25,7 +25,7 @@ const options: string[] = [
   "body",
 ];
 
-const halfSizeCards: string[] = [
+export const halfSizeCards: string[] = [
   "Top languages used in repository card",
   "Top languages in commits card",
   "GitHub stats card",
