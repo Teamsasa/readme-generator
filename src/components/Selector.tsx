@@ -97,7 +97,6 @@ const colorProfiles: string[] = [
   "yellow",
 ];
 
-// ほんとはもっとたくさんある
 const githubReadmeStatsProfiles: string[] = [
   "default",
   "default_repocard",
