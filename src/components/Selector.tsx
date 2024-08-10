@@ -6,6 +6,7 @@ type CardData = {
   id: number;
   label1: string;
   label2: string;
+  label3?: string;
 };
 
 type SelectorProps = {
@@ -23,6 +24,15 @@ const options: string[] = [
   "title",
   "body",
 ];
+
+const halfSizeCards: string[] = [
+  "Top languages used in repository card",
+  "Top languages in commits card",
+  "GitHub stats card",
+  "Productive time card",
+];
+
+const alignProfiles: string[] = ["left", "center", "right"];
 
 const cardProfiles: string[] = [
   "default",
@@ -79,13 +89,15 @@ const Selector: React.FC<SelectorProps> = ({
       id: Date.now(),
       label1: options[0],
       label2: cardProfiles[0],
+      label3:
+        options[0] === "title" || options[0] === "body" ? alignProfiles[0] : "",
     };
     setSelectedItems([...selectedItems, newCard]);
   };
 
   const updateLabel = (
     id: number,
-    labelType: "label1" | "label2",
+    labelType: "label1" | "label2" | "label3",
     value: string,
   ) => {
     setSelectedItems(
@@ -98,6 +110,10 @@ const Selector: React.FC<SelectorProps> = ({
               ...card,
               [labelType]: value,
               label2: profiles[0],
+              label3:
+                value === "title" || value === "body"
+                  ? alignProfiles[0]
+                  : undefined,
             };
           }
           return { ...card, [labelType]: value };
@@ -120,7 +136,7 @@ const Selector: React.FC<SelectorProps> = ({
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="p-4">
+      <div className="p-4 grid grid-cols-2 gap-4">
         {selectedItems.map((card, index) => (
           <DraggableCard
             key={card.id}
@@ -131,7 +147,7 @@ const Selector: React.FC<SelectorProps> = ({
             removeCard={removeCard}
           />
         ))}
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 col-span-2">
           <button
             onClick={addCard}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300"
@@ -150,9 +166,7 @@ interface DraggableCardProps {
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   updateLabel: (
     id: number,
-
-    labelType: "label1" | "label2",
-
+    labelType: "label1" | "label2" | "label3",
     value: string,
   ) => void;
   removeCard: (id: number) => void;
@@ -219,7 +233,9 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
     <div
       ref={ref}
       style={{ opacity }}
-      className="border bg-white dark:bg-neutral-800 p-4 mb-4 rounded dark:border-neutral-600"
+      className={`border bg-white dark:bg-neutral-800 p-4 mb-4 rounded dark:border-neutral-600 ${
+        halfSizeCards.includes(card.label1) ? "col-span-1" : "col-span-2"
+      }`}
     >
       <div className="flex items-center mb-2">
         <div ref={drag} className="cursor-move mr-2">
@@ -245,12 +261,14 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           ))}
         </select>
         {card.label1 === "title" || card.label1 === "body" ? (
-          <input
-            type="text"
-            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
-            value={card.label2}
-            onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
-          />
+          <>
+            <input
+              type="text"
+              className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              value={card.label2}
+              onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
+            />
+          </>
         ) : (
           <select
             className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
@@ -268,6 +286,21 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           </select>
         )}
       </div>
+      {card.label1 === "title" || card.label1 === "body" ? (
+        <div className="flex justify-center mt-2">
+          <select
+            className="w-1/2 p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            value={card.label3}
+            onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
+          >
+            {alignProfiles.map((align) => (
+              <option key={align} value={align}>
+                {align}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : null}
       <div className="flex justify-end mt-2">
         <button
           onClick={() => removeCard(card.id)}
