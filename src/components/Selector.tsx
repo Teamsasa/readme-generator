@@ -28,6 +28,7 @@ const options: string[] = [
   "Static Badge",
   "skill icons",
   "typograssy",
+  "github readme stats",
   "title",
   "body",
 ];
@@ -95,6 +96,22 @@ const colorProfiles: string[] = [
   "yellow",
 ];
 
+
+// ほんとはもっとたくさんある
+const githubReadmeStatsProfiles: string[] = [
+  "default",
+  "shadow_blue",
+  "radical",
+  "merko",
+  "gruvbox",
+  "gruvbox_light",
+  "highcontrast",
+  "vue",
+  "algolia",
+  "graywhite",
+  "swift",
+];
+
 const Selector: React.FC<SelectorProps> = ({
   selectedItems,
   setSelectedItems,
@@ -158,6 +175,12 @@ const Selector: React.FC<SelectorProps> = ({
                 ...card,
                 [labelType]: value,
                 label2: "Hello world こんにちは世界",
+              }
+            } else if (value === "github readme stats") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: githubReadmeStatsProfiles[0],
               }
             } else {
               return {
@@ -369,6 +392,8 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           >
             {(card.label1 === "profile-trophy"
               ? trophyProfiles
+              : card.label1 === "github readme stats"
+              ? githubReadmeStatsProfiles
               : cardProfiles
             ).map((profile) => (
               <option key={profile} value={profile}>
