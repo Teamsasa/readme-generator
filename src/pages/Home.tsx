@@ -17,6 +17,12 @@ const Home: React.FC = () => {
   const [code, setCode] = useState("");
 
   const handleGenerateCode = () => {
+    if (!username) {
+      alert(
+        "🔴Error : Username is required.\nPlease enter your GitHub username.",
+      );
+      return;
+    }
     const generatedCode = selectedItems
       .map((item) => {
         const label1Map: { [key: string]: string } = {
