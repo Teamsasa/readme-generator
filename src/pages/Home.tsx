@@ -4,6 +4,7 @@ import Selector from "../components/Selector";
 import Button from "../components/Button";
 import GeneratedCode from "../components/GeneratedCode";
 import { halfSizeCards } from "../constants";
+import dedent from "ts-dedent";
 
 type CardData = {
   id: number;
@@ -56,11 +57,11 @@ const Home: React.FC = () => {
     for (let i = 0; i < group.length; i += 2) {
       const cardsToDisplay = group.slice(i, i + 2);
       const alignment = cardsToDisplay[0].label3;
-      groupHtml += `
+      groupHtml += dedent`
         <div style="display: flex; justify-content: ${alignment}; align-items: center; flex-wrap: nowrap; margin-bottom: 10px;">
           ${cardsToDisplay
             .map(
-              (item) => `
+              (item) => dedent`
             <img src="https://github-profile-summary-cards.vercel.app/api/cards/${getCardUrl(item.label1)}?username=${username}&count_private=true&theme=${item.label2}" style="margin-right: 10px;"/>
           `,
             )
