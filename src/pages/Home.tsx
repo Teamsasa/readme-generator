@@ -3,7 +3,7 @@ import Input from "../components/Input";
 import Selector from "../components/Selector";
 import Button from "../components/Button";
 import GeneratedCode from "../components/GeneratedCode";
-import { halfSizeCards } from "../components/Selector";
+import { halfSizeCards } from "../constants";
 
 type CardData = {
   id: number;

@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { DndProvider, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { halfSizeCards } from "../constants";
 
 type CardData = {
   id: number;
@@ -23,13 +24,6 @@ const options: string[] = [
   "profile-trophy",
   "title",
   "body",
-];
-
-export const halfSizeCards: string[] = [
-  "Top languages used in repository card",
-  "Top languages in commits card",
-  "GitHub stats card",
-  "Productive time card",
 ];
 
 const alignProfiles: string[] = ["left", "center", "right"];
