@@ -188,7 +188,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: unknown, monitor: DropTargetMonitor<unknown, unknown>) {
+    hover(item: unknown) {
       const typedItem = item as { index: number };
       if (!ref.current) {
         return;
@@ -197,19 +197,6 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
       const hoverIndex = index;
 
       if (dragIndex === hoverIndex) {
-        return;
-      }
-
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
-
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
 
