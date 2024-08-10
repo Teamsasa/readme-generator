@@ -22,8 +22,8 @@ const LicenseModal: React.FC<LicenseModalProps> = ({ onClose }) => {
           Permission is hereby granted, free of charge, to any person obtaining
           a copy
           <br />
-          of this software and associated documentation files (the &rdquo;Software&rdquo;),
-          to deal
+          of this software and associated documentation files (the
+          &rdquo;Software&rdquo;), to deal
           <br />
           in the Software without restriction, including without limitation the
           rights
@@ -42,8 +42,8 @@ const LicenseModal: React.FC<LicenseModalProps> = ({ onClose }) => {
           copies or substantial portions of the Software.
           <br />
           <br />
-          THE SOFTWARE IS PROVIDED &rdquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND,
-          EXPRESS OR
+          THE SOFTWARE IS PROVIDED &rdquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY
+          KIND, EXPRESS OR
           <br />
           IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
           MERCHANTABILITY,
@@ -69,7 +69,8 @@ const LicenseModal: React.FC<LicenseModalProps> = ({ onClose }) => {
           <br />
           a copy of this software and associated documentation files (the
           <br />
-          &rdquo;Software&rdquo;), to deal in the Software without restriction, including
+          &rdquo;Software&rdquo;), to deal in the Software without restriction,
+          including
           <br />
           without limitation the rights to use, copy, modify, merge, publish,
           <br />
@@ -85,7 +86,8 @@ const LicenseModal: React.FC<LicenseModalProps> = ({ onClose }) => {
           included in all copies or substantial portions of the Software.
           <br />
           <br />
-          THE SOFTWARE IS PROVIDED &rdquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY KIND,
+          THE SOFTWARE IS PROVIDED &rdquo;AS IS&rdquo;, WITHOUT WARRANTY OF ANY
+          KIND,
           <br />
           EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
           <br />

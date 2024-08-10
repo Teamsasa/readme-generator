@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import LicenseModal from './LicenseModal';
+import React, { useState } from "react";
+import LicenseModal from "./LicenseModal";
 
 const Footer: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
