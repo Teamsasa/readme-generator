@@ -150,9 +150,11 @@ const Selector: React.FC<SelectorProps> = ({
         <div className="flex justify-center mt-4 col-span-2">
           <button
             onClick={addCard}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300"
+            className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white"
           >
-            項目を追加
+            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+              + Add item
+            </span>
           </button>
         </div>
       </div>
@@ -220,7 +222,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
     <div
       ref={ref}
       style={{ opacity }}
-      className={`border bg-white dark:bg-neutral-800 p-4 mb-4 rounded dark:border-neutral-600 ${
+      className={`border p-4 mb-4 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500 ${
         halfSizeCards.includes(card.label1) ? "col-span-1" : "col-span-2"
       }`}
     >
@@ -237,7 +239,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           </svg>
         </div>
         <select
-          className="w-full p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+          className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
           value={card.label1}
           onChange={(e) => updateLabel(card.id, "label1", e.target.value)}
         >
@@ -251,14 +253,14 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           <>
             <input
               type="text"
-              className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              className="w-full p-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
               value={card.label2}
               onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
             />
           </>
         ) : (
           <select
-            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            className="w-full p-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           >
@@ -276,7 +278,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
       {card.label1 === "title" || card.label1 === "body" ? (
         <div className="flex justify-center mt-2">
           <select
-            className="w-1/2 p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            className="w-1/2 p-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
             value={card.label3}
             onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
           >

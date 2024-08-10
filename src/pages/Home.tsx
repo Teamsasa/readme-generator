@@ -54,16 +54,29 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto py-10 p-4 bg-neutral-50 text-black dark:bg-neutral-800 dark:text-white">
-      <Input
-        value={username}
-        onChange={setUsername}
-        placeholder="Enter your GitHub username"
-      />
+    <div className="container mx-auto py-10 p-4 bg-neutral-100 text-black dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500">
+      <h2 className="mb-4 pb-4 text-xl text-center dark:text-white">
+        Enter your GitHub username and select the profile cards you want to
+        generate code for.
+      </h2>
+      <div className="flex justify-center">
+        <div className="w-1/4">
+          <Input
+            value={username}
+            onChange={setUsername}
+            placeholder="Enter your GitHub username"
+          />
+        </div>
+      </div>
+      <hr className="my-8 mx-20 border-zinc-500" />
+      <h2 className="pb-8 text-xl text-center dark:text-white">
+        Select the profile cards you want to generate code.
+      </h2>
       <Selector
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
       />
+	  <hr className="my-8 mx-20 border-zinc-500" />
       <div className="mt-4 text-center">
         <Button onClick={handleGenerateCode}>Generate Code</Button>
       </div>

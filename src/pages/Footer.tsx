@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <footer className="bg-neutral-50 text-black dark:bg-neutral-800 dark:text-white py-4 text-center">
+    <footer className="py-4 text-center bg-zinc-100 dark:bg-zinc-900 dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border-zinc-500">
       <p>
         <button onClick={openModal}>Software product license</button>
       </p>
