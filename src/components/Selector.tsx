@@ -21,6 +21,7 @@ const options: string[] = [
   "GitHub stats card",
   "Productive time card",
   "profile-trophy",
+  "readme typing svg",
   "title",
   "body",
 ];
@@ -269,6 +270,12 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
               onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
             />
           </>
+        ) :  card.label1 === "readme typing svg" ? (
+          <textarea
+            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            value={card.label2}
+            onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
+          />
         ) : (
           <select
             className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
