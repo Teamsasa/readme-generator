@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { DndProvider, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 type CardData = {
