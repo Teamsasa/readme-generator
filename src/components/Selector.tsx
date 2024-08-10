@@ -38,6 +38,7 @@ const halfSizeCards: string[] = [
   "Top languages in commits card",
   "GitHub stats card",
   "Productive time card",
+  "github readme stats",
 ];
 
 const alignProfiles: string[] = ["left", "center", "right"];
