@@ -2,12 +2,15 @@ import React, { useRef } from "react";
 import { DndProvider, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-type CardData = {
+export type CardData = {
   id: number;
   label1: string;
   label2: string;
   label3?: string;
+  label4?: string;
 };
+
+type CardLabel = "label1" | "label2" | "label3" | "label4";
 
 type SelectorProps = {
   selectedItems: CardData[];
@@ -22,6 +25,7 @@ const options: string[] = [
   "Productive time card",
   "profile-trophy",
   "readme typing svg",
+  "Static Badge",
   "title",
   "body",
 ];
@@ -98,7 +102,7 @@ const Selector: React.FC<SelectorProps> = ({
 
   const updateLabel = (
     id: number,
-    labelType: "label1" | "label2" | "label3",
+    labelType: CardLabel,
     value: string,
   ) => {
     setSelectedItems(
@@ -167,7 +171,7 @@ interface DraggableCardProps {
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   updateLabel: (
     id: number,
-    labelType: "label1" | "label2" | "label3",
+    labelType: CardLabel,
     value: string,
   ) => void;
   removeCard: (id: number) => void;
@@ -270,12 +274,35 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
               onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
             />
           </>
-        ) :  card.label1 === "readme typing svg" ? (
+        ) : card.label1 === "readme typing svg" ? (
           <textarea
             className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           />
+        ) : card.label1 === "Static Badge" ? (
+          <>
+            <input
+              type="text"
+              className="w-2/5 p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              value={card.label2}
+              onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
+            />
+            <input
+              type="text"
+              className="w-2/5 p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              value={card.label3}
+              onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
+            />
+            {/* optional color choise */}
+            <input
+              type="text"
+              className="w-1/5 p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              value={card.label4}
+              defaultValue={"blue"}
+              onChange={(e) => updateLabel(card.id, "label4", e.target.value)}
+            />
+          </>
         ) : (
           <select
             className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
