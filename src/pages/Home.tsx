@@ -76,7 +76,7 @@ const Home: React.FC = () => {
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
       />
-	  <hr className="my-8 mx-20 border-zinc-500" />
+      <hr className="my-8 mx-20 border-zinc-500" />
       <div className="mt-4 text-center">
         <Button onClick={handleGenerateCode}>Generate Code</Button>
       </div>
