@@ -1,12 +1,13 @@
 import React, { useRef } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { halfSizeCards } from "../constants";
 
 type CardData = {
   id: number;
   label1: string;
   label2: string;
-  label3?: string;
+  label3: string;
 };
 
 type SelectorProps = {
@@ -23,13 +24,6 @@ const options: string[] = [
   "profile-trophy",
   "title",
   "body",
-];
-
-const halfSizeCards: string[] = [
-  "Top languages used in repository card",
-  "Top languages in commits card",
-  "GitHub stats card",
-  "Productive time card",
 ];
 
 const alignProfiles: string[] = ["left", "center", "right"];
@@ -89,8 +83,7 @@ const Selector: React.FC<SelectorProps> = ({
       id: Date.now(),
       label1: options[0],
       label2: cardProfiles[0],
-      label3:
-        options[0] === "title" || options[0] === "body" ? alignProfiles[0] : "",
+      label3: alignProfiles[0],
     };
     setSelectedItems([...selectedItems, newCard]);
   };
@@ -110,10 +103,7 @@ const Selector: React.FC<SelectorProps> = ({
               ...card,
               [labelType]: value,
               label2: profiles[0],
-              label3:
-                value === "title" || value === "body"
-                  ? alignProfiles[0]
-                  : undefined,
+              label3: alignProfiles[0],
             };
           }
           return { ...card, [labelType]: value };
@@ -145,6 +135,7 @@ const Selector: React.FC<SelectorProps> = ({
             moveCard={moveCard}
             updateLabel={updateLabel}
             removeCard={removeCard}
+            selectedItems={selectedItems}
           />
         ))}
         <div className="flex justify-center mt-4 col-span-2">
@@ -170,6 +161,7 @@ interface DraggableCardProps {
     value: string,
   ) => void;
   removeCard: (id: number) => void;
+  selectedItems: CardData[];
 }
 
 const DraggableCard: React.FC<DraggableCardProps> = ({
@@ -178,6 +170,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
   moveCard,
   updateLabel,
   removeCard,
+  selectedItems,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -216,6 +209,11 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
   const opacity = isDragging ? 0.4 : 1;
   dragPreview(drop(ref));
 
+  const isRightCard =
+    halfSizeCards.includes(card.label1) &&
+    index % 2 === 1 &&
+    halfSizeCards.includes(selectedItems[index - 1]?.label1);
+
   return (
     <div
       ref={ref}
@@ -248,52 +246,58 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           ))}
         </select>
         {card.label1 === "title" || card.label1 === "body" ? (
-          <>
-            <input
-              type="text"
-              className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
-              value={card.label2}
-              onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
-            />
-          </>
+          <input
+            type="text"
+            className="w-full p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            value={card.label2}
+            onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
+            placeholder="テキストを入力"
+          />
         ) : (
           <select
-            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            className="w-full p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           >
-            {(card.label1 === "profile-trophy"
-              ? trophyProfiles
-              : cardProfiles
-            ).map((profile) => (
-              <option key={profile} value={profile}>
-                {profile}
+            {card.label1 === "profile-trophy"
+              ? trophyProfiles.map((profile) => (
+                  <option key={profile} value={profile}>
+                    {profile}
+                  </option>
+                ))
+              : cardProfiles.map((profile) => (
+                  <option key={profile} value={profile}>
+                    {profile}
+                  </option>
+                ))}
+          </select>
+        )}
+        {!isRightCard && (
+          <select
+            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            value={card.label3}
+            onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
+          >
+            {alignProfiles.map((option) => (
+              <option key={option} value={option}>
+                {option}
               </option>
             ))}
           </select>
         )}
-      </div>
-      {card.label1 === "title" || card.label1 === "body" ? (
-        <div className="flex justify-center mt-2">
-          <select
-            className="w-1/2 p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
-            value={card.label3}
-            onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
-          >
-            {alignProfiles.map((align) => (
-              <option key={align} value={align}>
-                {align}
-              </option>
-            ))}
-          </select>
-        </div>
-      ) : null}
-      <div className="flex justify-end mt-2">
         <button
           onClick={() => removeCard(card.id)}
-          className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300"
+          className="ml-2 text-red-500 hover:text-red-700"
         >
-          削除
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path d="M19 6h-4V5a3 3 0 0 0-6 0v1H5v2h14V6zm-7 0V5a1 1 0 1 1 2 0v1h-2zM6 9v12a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9H6z" />
+          </svg>
         </button>
       </div>
     </div>
