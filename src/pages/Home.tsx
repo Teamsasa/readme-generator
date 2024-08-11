@@ -87,15 +87,15 @@ const Home: React.FC = () => {
     } else if (Object.prototype.hasOwnProperty.call(label1Map, item.label1)) {
       return `<div align="${item.label3}"><img src="https://github-profile-summary-cards.vercel.app/api/cards/${label1Map[item.label1]}?username=${username}&count_private=true&theme=${item.label2}"/></div>`;
     } else if (item.label1 === "readme typing svg") {
-      return `<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&repeat=true&width=435&lines=${item.label2.replaceAll(" ", "+").replaceAll("\n", ";")}" alt="Typing SVG" />`;
+      return `<div align="${item.label3}"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&repeat=true&width=435&lines=${item.label2.replaceAll(" ", "+").replaceAll("\n", ";")}" alt="Typing SVG" /></div>`;
     } else if (item.label1 === "Static Badge") {
-      return `<img src="https://img.shields.io/badge/${item.label2}-${item.label3}-${item.label4}" />`;
+      return `<div align="${item.label3}"><img src="https://img.shields.io/badge/${item.label2}-${item.label3}-${item.label4}" /></div>`;
     } else if (item.label1 === "skill icons") {
-      return `<img src="https://skillicons.dev/icons?i=${item.label2}" />`;
+      return `<div align="${item.label3}"><img src="https://skillicons.dev/icons?i=${item.label2}" /></div>`;
     } else if (item.label1 === "typograssy") {
-      return `<img alt="typograssy" src="https://typograssy.deno.dev/api?text=${item.label2}">`;
+      return `<div align="${item.label3}"><img alt="typograssy" src="https://typograssy.deno.dev/api?text=${item.label2}"></div>`;
     } else if (item.label1 === "github readme stats") {
-      return `<img src="https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${item.label2}" />`;
+      return `<div align="${item.label3}"><img src="https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${item.label2}" />></div>`;
     } else if (item.label1 === "title") {
       return `<h1 align="${item.label3}">${item.label2}</h1>`;
     } else if (item.label1 === "body") {
