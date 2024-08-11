@@ -4,7 +4,7 @@ import Footer from "./pages/Footer";
 
 const App: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-cover bg-center dark:bg-[url('/bg-img-g.jpg')]">
+    <div className="flex flex-col min-h-screen bg-cover bg-center dark:bg-[url('/bg-img-dark.jpg')]">
       <header>
         <h1 className="text-5xl font-bold text-center my-8">Readme Studio</h1>
       </header>
