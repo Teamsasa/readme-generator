@@ -71,7 +71,7 @@ const Home: React.FC = () => {
             .map((item) =>
               item.label1 === "github readme stats"
                 ? dedent`<img src="https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${item.label2}" />`
-                : dedent`<img src="https://github-profile-summary-cards.vercel.app/api/cards/${label1Map[item.label1] || ""}?username=${username}&count_private=true&theme=${item.label2}" style="margin-right: 10px;"/>`
+                : dedent`<img src="https://github-profile-summary-cards.vercel.app/api/cards/${label1Map[item.label1] || ""}?username=${username}&count_private=true&theme=${item.label2}" style="margin-right: 10px;"/>`,
             )
             .join("\n")}
         </div>
