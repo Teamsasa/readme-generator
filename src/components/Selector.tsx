@@ -342,10 +342,25 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
   const opacity = isDragging ? 0.4 : 1;
   dragPreview(drop(ref));
 
-  const isRightCard =
-    halfSizeCards.includes(card.label1) &&
-    index % 2 === 1 &&
-    halfSizeCards.includes(selectedItems[index - 1]?.label1);
+  const isRightCard = selectedItems
+    .slice(0, index + 1)
+    .reverse()
+    .reduce(
+      (acc, cur) => {
+        if (halfSizeCards.includes(cur.label1)) {
+          return {
+            count: acc.isContinuous ? acc.count + 1 : acc.count,
+            isContinuous: acc.isContinuous && true
+          };
+        } else {
+          return {
+            count: acc.count,
+            isContinuous: false
+          };
+        }
+      },
+      { count: 0, isContinuous: true }
+    ).count % 2 === 0;
 
   return (
     <div
