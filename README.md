@@ -4,7 +4,7 @@
 # Quick Start Guide
 Access the application and select the content and color you want to add to your README from the select box, then press the Generate Code button. You can add as many items as you like.
 ```
-https://main.d277m1n68wl8i3.amplifyapp.com/
+https://readmes.studio/
 ```
 
 # Developer Content
