@@ -24,7 +24,7 @@ const GeneratedCode: React.FC<GeneratedCodeProps> = ({ code }) => {
       <div className="relative dark:text-white bg-gray-200 p-4 mt-4 rounded shadow-inner dark:bg-zinc-900 dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500">
         <button
           onClick={copyToClipboard}
-          className="absolute top-1 right-2 dark:text-gray-400 dark:hover:text-gray-300 text-gray-300 hover:text-gray-400 transition duration-300"
+          className="absolute top-1 right-2 dark:text-gray-400 dark:hover:text-gray-300 text-gray-400 hover:text-gray-500 transition duration-300"
         >
           <FontAwesomeIcon icon={faClipboard} size="lg" />
         </button>
