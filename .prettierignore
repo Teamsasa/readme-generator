@@ -34,3 +34,6 @@ vite.*
 
 # tailwind
 tailwind.config.js
+
+# LiCENSE
+LicenseModal.tsx
