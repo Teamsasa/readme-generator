@@ -105,15 +105,14 @@ const Home: React.FC = () => {
   return (
     <div className="container mx-auto py-10 p-4 bg-neutral-100 text-black dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500">
       <h2 className="mb-4 pb-4 text-xl text-center dark:text-white">
-        Enter your GitHub username and select the profile cards you want to
-        generate code for.
+        Enter your GitHub username
       </h2>
       <div className="flex justify-center">
         <div className="w-1/4">
           <Input
             value={username}
             onChange={setUsername}
-            placeholder="Enter your GitHub username"
+            placeholder="GitHub username"
           />
         </div>
       </div>
