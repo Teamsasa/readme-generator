@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           content="A simple and customizable GitHub Profile generator."
         />
         <meta property="og:image" content="/og-img.jpg" />
-        <link rel="icon" href="/og-img.jpg" />
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
       </Helmet>
       <App />
     </HelmetProvider>
