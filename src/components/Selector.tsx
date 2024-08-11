@@ -238,7 +238,6 @@ const Selector: React.FC<SelectorProps> = ({
                 ...card,
                 [labelType]: value,
                 label2: cardProfiles[0],
-                label3: undefined,
               };
             }
           }
