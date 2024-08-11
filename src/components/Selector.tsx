@@ -382,14 +382,14 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           <>
             <input
               type="text"
-              className="w-full p-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
+              className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
               value={card.label2}
               onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
             />
           </>
         ) : card.label1 === "readme typing svg" ? (
           <textarea
-            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            className="w-full p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           />
@@ -409,7 +409,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
             />
             {/* optional color choise */}
             <select
-              className="w-1/5 p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              className="w-1/5 p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
               value={card.label4}
               onChange={(e) => updateLabel(card.id, "label4", e.target.value)}
             >
@@ -423,13 +423,13 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
         ) : card.label1 === "skill icons" || card.label1 === "typograssy" ? (
           <input
             type="text"
-            className="w-full p-2 border rounded bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            className="w-full p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           />
         ) : (
           <select
-            className="w-full p-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
+            className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           >
