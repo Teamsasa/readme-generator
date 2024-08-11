@@ -363,7 +363,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
         { count: 0, isContinuous: true },
       ).count %
       2 ===
-    0 && halfSizeCards.includes(card.label1);
+      0 && halfSizeCards.includes(card.label1);
 
   return (
     <div
