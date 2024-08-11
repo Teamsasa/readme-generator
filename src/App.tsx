@@ -18,8 +18,8 @@ const App: React.FC = () => {
             property="og:description"
             content="A simple and customizable GitHub Profile generator."
           />
-          <meta property="og:image" content="../public/og-img.jpg" />
-          <link rel="icon" href="../public/og-img.jpg" />
+          <meta property="og:image" content="/og-img.jpg" />
+          <link rel="icon" href="/og-img.jpg" />
         </Helmet>
         <header>
           <h1 className="text-5xl font-bold text-center my-8">Readme Studio</h1>
