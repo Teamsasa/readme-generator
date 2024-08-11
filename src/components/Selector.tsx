@@ -3,12 +3,15 @@ import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { halfSizeCards } from "../constants";
 
-type CardData = {
+export type CardData = {
   id: number;
   label1: string;
   label2: string;
   label3: string;
+  label4: string;
 };
+
+type CardLabel = "label1" | "label2" | "label3" | "label4";
 
 type SelectorProps = {
   selectedItems: CardData[];
@@ -22,6 +25,11 @@ const options: string[] = [
   "GitHub stats card",
   "Productive time card",
   "profile-trophy",
+  "readme typing svg",
+  "Static Badge",
+  "skill icons",
+  "typograssy",
+  "github readme stats",
   "title",
   "body",
 ];
@@ -74,6 +82,92 @@ const trophyProfiles: string[] = [
   "no",
 ];
 
+const colorProfiles: string[] = [
+  "brightgreen",
+  "blue",
+  "red",
+  "green",
+  "yellow",
+];
+
+const githubReadmeStatsProfiles: string[] = [
+  "default",
+  "default_repocard",
+  "transparent",
+  "shadow_red",
+  "shadow_green",
+  "shadow_blue",
+  "dark",
+  "radical",
+  "merko",
+  "gruvbox",
+  "gruvbox_light",
+  "tokyonight",
+  "onedark",
+  "cobalt",
+  "synthwave",
+  "highcontrast",
+  "dracula",
+  "prussian",
+  "monokai",
+  "vue",
+  "vue-dark",
+  "shades-of-purple",
+  "nightowl",
+  "buefy",
+  "blue-green",
+  "algolia",
+  "great-gatsby",
+  "darcula",
+  "bear",
+  "solarized-dark",
+  "solarized-light",
+  "chartreuse-dark",
+  "nord",
+  "gotham",
+  "material-palenight",
+  "graywhite",
+  "vision-friendly-dark",
+  "ayu-mirage",
+  "midnight-purple",
+  "calm",
+  "flag-india",
+  "omni",
+  "react",
+  "jolly",
+  "maroongold",
+  "yeblu",
+  "blueberry",
+  "slateorange",
+  "kacho_ga",
+  "outrun",
+  "ocean_dark",
+  "city_lights",
+  "github_dark",
+  "github_dark_dimmed",
+  "discord_old_blurple",
+  "aura_dark",
+  "panda",
+  "noctis_minimus",
+  "cobalt2",
+  "swift",
+  "aura",
+  "apprentice",
+  "moltack",
+  "codeSTACKr",
+  "rose_pine",
+  "catppuccin_latte",
+  "catppuccin_mocha",
+  "date_night",
+  "one_dark_pro",
+  "rose",
+  "holi",
+  "neon",
+  "blue_navy",
+  "calm_pink",
+  "ambient_gradient",
+];
+
 const Selector: React.FC<SelectorProps> = ({
   selectedItems,
   setSelectedItems,
@@ -84,27 +178,68 @@ const Selector: React.FC<SelectorProps> = ({
       label1: options[0],
       label2: cardProfiles[0],
       label3: alignProfiles[0],
+      label4: colorProfiles[0],
     };
     setSelectedItems([...selectedItems, newCard]);
   };
 
-  const updateLabel = (
-    id: number,
-    labelType: "label1" | "label2" | "label3",
-    value: string,
-  ) => {
+  const updateLabel = (id: number, labelType: CardLabel, value: string) => {
     setSelectedItems(
       selectedItems.map((card) => {
         if (card.id === id) {
           if (labelType === "label1") {
-            const profiles =
-              value === "profile-trophy" ? trophyProfiles : cardProfiles;
-            return {
-              ...card,
-              [labelType]: value,
-              label2: profiles[0],
-              label3: alignProfiles[0],
-            };
+            if (value === "profile-trophy") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: trophyProfiles[0],
+              };
+            } else if (value === "title" || value === "body") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "default",
+                label3: alignProfiles[0],
+              };
+            } else if (value === "readme typing svg") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "this is first line\nthis is second line",
+              };
+            } else if (value === "Static Badge") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "any text",
+                label3: "you like",
+                label4: colorProfiles[0],
+              };
+            } else if (value === "skill icons") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "react,typescript,javascript,html,css",
+              };
+            } else if (value === "typograssy") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: "Hello world こんにちは世界",
+              };
+            } else if (value === "github readme stats") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: githubReadmeStatsProfiles[0],
+              };
+            } else {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: cardProfiles[0],
+              };
+            }
           }
           return { ...card, [labelType]: value };
         }
@@ -157,11 +292,7 @@ interface DraggableCardProps {
   card: CardData;
   index: number;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
-  updateLabel: (
-    id: number,
-    labelType: "label1" | "label2" | "label3",
-    value: string,
-  ) => void;
+  updateLabel: (id: number, labelType: CardLabel, value: string) => void;
   removeCard: (id: number) => void;
   selectedItems: CardData[];
 }
@@ -212,9 +343,27 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
   dragPreview(drop(ref));
 
   const isRightCard =
-    halfSizeCards.includes(card.label1) &&
-    index % 2 === 1 &&
-    halfSizeCards.includes(selectedItems[index - 1]?.label1);
+    selectedItems
+      .slice(0, index + 1)
+      .reverse()
+      .reduce(
+        (acc, cur) => {
+          if (halfSizeCards.includes(cur.label1)) {
+            return {
+              count: acc.isContinuous ? acc.count + 1 : acc.count,
+              isContinuous: acc.isContinuous && true,
+            };
+          } else {
+            return {
+              count: acc.count,
+              isContinuous: false,
+            };
+          }
+        },
+        { count: 0, isContinuous: true },
+      ).count %
+      2 ===
+      0 && halfSizeCards.includes(card.label1);
 
   return (
     <div
@@ -251,28 +400,67 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           <>
             <input
               type="text"
-              className="w-full p-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
+              className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
               value={card.label2}
               onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
             />
           </>
+        ) : card.label1 === "readme typing svg" ? (
+          <textarea
+            className="w-full p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            value={card.label2}
+            onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
+          />
+        ) : card.label1 === "Static Badge" ? (
+          <>
+            <input
+              type="text"
+              className="w-2/5 p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              value={card.label2}
+              onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
+            />
+            <input
+              type="text"
+              className="w-2/5 p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              value={card.label3}
+              onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
+            />
+            {/* optional color choise */}
+            <select
+              className="w-1/5 p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              value={card.label4}
+              onChange={(e) => updateLabel(card.id, "label4", e.target.value)}
+            >
+              {colorProfiles.map((color) => (
+                <option key={color} value={color}>
+                  {color}
+                </option>
+              ))}
+            </select>
+          </>
+        ) : card.label1 === "skill icons" || card.label1 === "typograssy" ? (
+          <input
+            type="text"
+            className="w-full p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+            value={card.label2}
+            onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
+          />
         ) : (
           <select
-            className="w-full p-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
+            className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           >
-            {card.label1 === "profile-trophy"
-              ? trophyProfiles.map((profile) => (
-                  <option key={profile} value={profile}>
-                    {profile}
-                  </option>
-                ))
-              : cardProfiles.map((profile) => (
-                  <option key={profile} value={profile}>
-                    {profile}
-                  </option>
-                ))}
+            {(card.label1 === "profile-trophy"
+              ? trophyProfiles
+              : card.label1 === "github readme stats"
+                ? githubReadmeStatsProfiles
+                : cardProfiles
+            ).map((profile) => (
+              <option key={profile} value={profile}>
+                {profile}
+              </option>
+            ))}
           </select>
         )}
         {!isRightCard && (
