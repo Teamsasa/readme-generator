@@ -37,7 +37,7 @@ const Home: React.FC = () => {
       if (halfSizeCards.includes(item.label1)) {
         if (!insideGroup) {
           if (currentGroup.length > 0) {
-            generatedCode += (generatedCode != "" ? "\n" : "");
+            generatedCode += generatedCode != "" ? "\n" : "";
             generatedCode += generateGroupHtml(currentGroup);
             currentGroup = [];
           }
@@ -46,7 +46,7 @@ const Home: React.FC = () => {
         currentGroup.push(item);
       } else {
         if (insideGroup) {
-          generatedCode += (generatedCode != "" ? "\n" : "");
+          generatedCode += generatedCode != "" ? "\n" : "";
           generatedCode += generateGroupHtml(currentGroup);
           currentGroup = [];
           insideGroup = false;
@@ -56,7 +56,7 @@ const Home: React.FC = () => {
     });
 
     if (currentGroup.length > 0) {
-      generatedCode += (generatedCode != "" ? "\n" : "");
+      generatedCode += generatedCode != "" ? "\n" : "";
       generatedCode += generateGroupHtml(currentGroup);
     }
 
