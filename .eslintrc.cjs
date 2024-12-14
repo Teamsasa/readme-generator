@@ -77,10 +77,10 @@ module.exports = {
         selector: "property",
         filter: {
           regex: "^Webkit",
-          match: true
+          match: true,
         },
-        format: null
-      }
+        format: null,
+      },
     ],
   },
 };
