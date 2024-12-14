@@ -73,6 +73,14 @@ module.exports = {
         modifiers: ["requiresQuotes"],
         format: null,
       },
+      {
+        selector: "property",
+        filter: {
+          regex: "^Webkit",
+          match: true
+        },
+        format: null
+      }
     ],
   },
 };
