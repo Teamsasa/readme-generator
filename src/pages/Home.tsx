@@ -51,6 +51,7 @@ const Home: React.FC = () => {
           currentGroup = [];
           insideGroup = false;
         }
+        generatedCode += generatedCode != "" ? "\n" : "";
         generatedCode += generateItemHtml(item);
       }
     });
@@ -74,6 +75,8 @@ const Home: React.FC = () => {
             .map((item) =>
               item.label1 === "github readme stats"
                 ? dedent`<img src="https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${item.label2}" />`
+                : item.label1 === "github sns card"
+                ? dedent`<img src="https://github-sns-profile-card-e53bc5obaa-an.a.run.app/svg?platform=${item.label2}&userid=${item.label4}" />`
                 : dedent`<img src="https://github-profile-summary-cards.vercel.app/api/cards/${label1Map[item.label1] || ""}?username=${username}&count_private=true&theme=${item.label2}" style="margin-right: 10px;"/>`,
             )
             .join("\n")}
@@ -96,6 +99,8 @@ const Home: React.FC = () => {
       return `<div align="${item.label3}"><img src="https://skillicons.dev/icons?i=${item.label2}" /></div>`;
     } else if (item.label1 === "typograssy") {
       return `<div align="${item.label3}"><img alt="typograssy" src="https://typograssy.deno.dev/api?text=${item.label2}"></div>`;
+    } else if (item.label1 === "github sns card") {
+      return `<div align="${item.label3}"><img src="https://github-sns-profile-card-e53bc5obaa-an.a.run.app/svg?platform=${item.label2}&userid=${item.label4}" /></div>`;
     } else if (item.label1 === "title") {
       return `<h1 align="${item.label3}">${item.label2}</h1>`;
     } else if (item.label1 === "body") {
