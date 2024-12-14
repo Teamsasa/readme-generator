@@ -384,7 +384,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
       case "Top languages in commits card":
         return "https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=torvalds";
       case "GitHub stats card":
-        return "https://github-readme-stats.vercel.app/api?username=torvalds&show_icons=true";
+        return "https://github-profile-summary-cards.vercel.app/api/cards/stats?username=torvalds";
       case "Productive time card":
         return "https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=torvalds&count_private=true&theme=default";
       case "profile-trophy":
