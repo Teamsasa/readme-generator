@@ -5,4 +5,5 @@ export const halfSizeCards: string[] = [
   "GitHub stats card",
   "Productive time card",
   "github readme stats",
+  "github sns card",
 ];

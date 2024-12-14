@@ -31,6 +31,7 @@ const options: string[] = [
   "skill icons",
   "typograssy",
   "github readme stats",
+  "github sns card",
   "title",
   "body",
 ];
@@ -169,6 +170,15 @@ const githubReadmeStatsProfiles: string[] = [
   "ambient_gradient",
 ];
 
+const platformProfiles: string[] = [
+  "qiita",
+  "zenn",
+  "note",
+  "atcoder",
+  "youtube",
+  "stackoverflow",
+];
+
 const Selector: React.FC<SelectorProps> = ({
   selectedItems,
   setSelectedItems,
@@ -233,6 +243,13 @@ const Selector: React.FC<SelectorProps> = ({
                 ...card,
                 [labelType]: value,
                 label2: githubReadmeStatsProfiles[0],
+              };
+            } else if (value === "github sns card") {
+              return {
+                ...card,
+                [labelType]: value,
+                label2: platformProfiles[0],
+                label4: "Qiita",
               };
             } else {
               return {
@@ -399,6 +416,8 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
         return "https://typograssy.deno.dev/api?text=Hello+world!+こんにちは世界";
       case "github readme stats":
         return "https://github-readme-stats.vercel.app/api?username=torvalds&show_icons=true&theme=default";
+      case "github sns card":
+        return "https://github-sns-profile-card-e53bc5obaa-an.a.run.app/svg?platform=qiita&userid=Qiita";
       default:
         return "";
     }
@@ -626,6 +645,27 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           />
+        ) : card.label1 === "github sns card" ? (
+          <>
+            <select
+              className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500 bg-gray-200 [&>option]:dark:bg-zinc-900"
+              value={card.label2}
+              onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
+            >
+              {platformProfiles.map((platform) => (
+                <option key={platform} value={platform}>
+                  {platform}
+                </option>
+              ))}
+            </select>
+            <input
+              type="text"
+              className="w-full p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              value={card.label4}
+              onChange={(e) => updateLabel(card.id, "label4", e.target.value)}
+              placeholder="Enter username"
+            />
+          </>
         ) : (
           <select
             className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500 bg-gray-200 [&>option]:dark:bg-zinc-900"
