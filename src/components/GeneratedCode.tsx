@@ -37,6 +37,9 @@ const GeneratedCode: React.FC<GeneratedCodeProps> = ({ code }) => {
           {`
           h1 {
             font-size: 36px;
+            border-bottom: 1px solid silver;
+            font-weight: bold;
+            margin-bottom: 10px;
           }
         `}
         </style>

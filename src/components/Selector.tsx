@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { createPortal } from "react-dom";
 import { halfSizeCards } from "../constants";
 
 export type CardData = {
@@ -365,6 +366,168 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
       2 ===
       0 && halfSizeCards.includes(card.label1);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [previewOption, setPreviewOption] = useState<string | null>(null);
+  const [previewStyle, setPreviewStyle] = useState({
+    x: 0,
+    y: 0,
+    position: "right" as "right" | "left",
+  });
+
+  // プレビュー画像のURLを生成する関数
+  const getPreviewUrl = (option: string): string => {
+    switch (option) {
+      case "Profile details card":
+        return "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=torvalds";
+      case "Top languages used in repository card":
+        return "https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=torvalds";
+      case "Top languages in commits card":
+        return "https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=torvalds";
+      case "GitHub stats card":
+        return "https://github-readme-stats.vercel.app/api?username=torvalds&show_icons=true";
+      case "Productive time card":
+        return "https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=torvalds&count_private=true&theme=default";
+      case "profile-trophy":
+        return "https://github-profile-trophy.vercel.app/?username=torvalds";
+      case "readme typing svg":
+        return "https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&repeat=true&width=435&lines=Hello+world!";
+      case "Static Badge":
+        return "https://img.shields.io/badge/any%20text-you%20like-blue";
+      case "skill icons":
+        return "https://skillicons.dev/icons?i=react,typescript,javascript,html,css";
+      case "typograssy":
+        return "https://typograssy.deno.dev/api?text=Hello+world!+こんにちは世界";
+      case "github readme stats":
+        return "https://github-readme-stats.vercel.app/api?username=torvalds&show_icons=true&theme=default";
+      default:
+        return "";
+    }
+  };
+
+  // 画像をプリロードする関数
+  const preloadImage = (url: string) => {
+    if (!url) return;
+    const img = new Image();
+    img.src = url;
+  };
+
+  // コンポーネントマウント時に全ての画像をプリロード
+  useEffect(() => {
+    options.forEach((option) => {
+      const url = getPreviewUrl(option);
+      preloadImage(url);
+    });
+  }, []);
+
+  // プレビューの位置を計算して設定
+  const calculatePreviewPosition = (event: React.MouseEvent) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const rightSpace = window.innerWidth - rect.right;
+    const position = rightSpace > 500 ? "right" : "left";
+
+    setPreviewStyle({
+      x: position === "right" ? rect.right + 10 : rect.left - 510,
+      y: Math.min(rect.top, window.innerHeight - 400),
+      position,
+    });
+  };
+
+  const handleOptionSelect = (option: string) => {
+    updateLabel(card.id, "label1", option);
+    setIsOpen(false);
+    setPreviewOption(null); // プレビューを閉じる
+  };
+
+  const handleMouseEnter = (option: string, event: React.MouseEvent) => {
+    calculatePreviewPosition(event);
+    setPreviewOption(option);
+  };
+
+  // プレビューの表示位置が画面外にならないように監視
+  useEffect(() => {
+    const handleScroll = () => {
+      if (previewOption) {
+        setPreviewOption(null);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [previewOption]);
+
+  // プレビューコンポーネント
+  const PreviewPopup = () => {
+    if (!previewOption) return null;
+
+    const previewUrl = getPreviewUrl(previewOption);
+
+    return createPortal(
+      <div
+        className={`fixed z-[9999] bg-white dark:bg-zinc-800 border dark:border-zinc-600 rounded-md shadow-xl p-4 transition-all duration-200 ease-in-out ${
+          previewOption
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-2"
+        }`}
+        style={{
+          left: `${previewStyle.x}px`,
+          top: `${previewStyle.y}px`,
+          width: "500px",
+          maxHeight: "400px",
+          overflow: "auto",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+        }}
+      >
+        <div className="relative">
+          {previewOption !== "title" && previewOption !== "body" ? (
+            <img
+              src={previewUrl}
+              alt={`${previewOption} Preview`}
+              className="w-auto h-auto"
+            />
+          ) : (
+            <div className="whitespace-nowrap">
+              <p
+                className={
+                  previewOption === "title" ? "text-xl font-bold" : "text-base"
+                }
+              >
+                Sample {previewOption}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>,
+      document.body,
+    );
+  };
+
+  // プルダウンの参照を追加
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // クリックイベントのハンドラーを更新
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+        setPreviewOption(null); // プルダウンを閉じる際にプレビューも閉じる
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
       ref={ref}
@@ -385,17 +548,35 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
             <path d="M8 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8-16a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
           </svg>
         </div>
-        <select
-          className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
-          value={card.label1}
-          onChange={(e) => updateLabel(card.id, "label1", e.target.value)}
-        >
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+
+        <div className="relative w-full mr-2 flex items-start bg-gray-200 dark:bg-zinc-900">
+          <div className="flex-1" ref={dropdownRef}>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-full p-2 text-left dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
+            >
+              {card.label1}
+            </button>
+
+            {isOpen && (
+              <div className="absolute z-50 w-full mt-1 dark:bg-zinc-900 dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 border dark:border-zinc-500 rounded-md shadow-lg max-h-60 overflow-auto bg-gray-200">
+                {options.map((option) => (
+                  <div
+                    key={option}
+                    className="p-2 hover:bg-gray-100 dark:hover:bg-zinc-700/50 cursor-pointer dark:bg-zinc-900"
+                    onMouseEnter={(e) => handleMouseEnter(option, e)}
+                    onMouseLeave={() => !isOpen && setPreviewOption(null)}
+                    onClick={() => handleOptionSelect(option)}
+                  >
+                    {option}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <PreviewPopup />
+        </div>
+
         {card.label1 === "title" || card.label1 === "body" ? (
           <>
             <input
@@ -427,7 +608,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
             />
             {/* optional color choise */}
             <select
-              className="w-1/5 p-2 border rounded mr-2 bg-white dark:bg-neutral-800 dark:border-neutral-600"
+              className="w-1/5 p-2 border rounded mr-2 dark:bg-neutral-800 dark:border-neutral-600 bg-gray-200 [&>option]:dark:bg-zinc-900"
               value={card.label4}
               onChange={(e) => updateLabel(card.id, "label4", e.target.value)}
             >
@@ -447,7 +628,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
           />
         ) : (
           <select
-            className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
+            className="w-full p-2 mr-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500 bg-gray-200 [&>option]:dark:bg-zinc-900"
             value={card.label2}
             onChange={(e) => updateLabel(card.id, "label2", e.target.value)}
           >
@@ -465,7 +646,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({
         )}
         {!isRightCard && (
           <select
-            className="w-1/2 p-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500"
+            className="w-1/2 p-2 dark:text-white dark:bg-zinc-900 dark:rounded-md dark:bg-clip-padding dark:backdrop-filter dark:backdrop-blur-xl dark:bg-opacity-30 dark:border dark:border-zinc-500 bg-gray-200 [&>option]:dark:bg-zinc-900"
             value={card.label3}
             onChange={(e) => updateLabel(card.id, "label3", e.target.value)}
           >
