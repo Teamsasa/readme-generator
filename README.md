@@ -4,7 +4,7 @@
 # Quick Start Guide
 Access the application and select the content and color you want to add to your README from the select box, then press the Generate Code button. You can add as many items as you like.
 ```
-https://readmes.studio/
+https://teamsasa.github.io/readme-generator/
 ```
 
 # Developer Content
